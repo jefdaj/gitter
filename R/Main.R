@@ -401,7 +401,8 @@ gitter <- function(image.file=file.choose(), plate.format=c(32,48), remove.noise
     im.grey[im.grey<0]=0
     # Find threshold
     if(prog) setTxtProgressBar(pb, 42)
-    thresh = .findOptimalThreshold(resize(im.grey, h=f))
+    #thresh = .findOptimalThreshold(resize(im.grey, h=f))
+    thresh = 0.9
   }else{
     loginfo('Running background correction')
     si = round((nrow(im.grey) / nrow) * 1.0)
@@ -411,7 +412,8 @@ gitter <- function(image.file=file.choose(), plate.format=c(32,48), remove.noise
     im.grey = whiteTopHatGreyScale(im.grey, kern)
     # Find threshold
     if(prog) setTxtProgressBar(pb, 39)
-    thresh = .findOptimalThreshold(im.grey)
+    #thresh = .findOptimalThreshold(im.grey)
+    thresh = 0.9
   }
   
   if(prog) setTxtProgressBar(pb, 48)

@@ -47,38 +47,38 @@
 }
 
 # Global thresholding 
-.findOptimalThreshold <- function(x, r=2, lim=c(0, 0.4), cap=0.2){
-  x[x<lim[1]] = 0
-  x[x>lim[2]] = 0
-  t = round(mean(x), r)
-  
-  mu1 = mean(x[x>=t])
-  mu2 = mean(x[x<t])
-  cmu1 = mu1
-  cmu2 = mu2
-  i = 1
-  while(TRUE){
-    if(i > 1){
-      cmu1 = mean(x[x>=t])
-      cmu2 = mean(x[x<t])
-    } 
-    if( (i > 1 & cmu1 == mu1 & cmu2 == mu2) | t > 1){
-      loginfo('Optimal threshold t = %s', t)
-      if(t>cap){
-        t = as.numeric(quantile(x, 0.90))
-        loginfo('Optimal threshold too high, setting threshold to 90th percentile t = %s', t)
-      }
-      return(t)
-      break;
-    }else{
-      mu1 = cmu1 
-      mu2 = cmu2
-      t = round( (mu1 + mu2)/2, r)
-      loginfo('Iteration %s, threshold t = %s', i-1, t)
-    }
-    i = i+1
-  }
-}
+#.findOptimalThreshold <- function(x, r=2, lim=c(0, 0.4), cap=0.2){
+#  x[x<lim[1]] = 0
+#  x[x>lim[2]] = 0
+#  t = round(mean(x), r)
+#  
+#  mu1 = mean(x[x>=t])
+#  mu2 = mean(x[x<t])
+#  cmu1 = mu1
+#  cmu2 = mu2
+#  i = 1
+#  while(TRUE){
+#    if(i > 1){
+#      cmu1 = mean(x[x>=t])
+#      cmu2 = mean(x[x<t])
+#    } 
+#    if( (i > 1 & cmu1 == mu1 & cmu2 == mu2) | t > 1){
+#      loginfo('Optimal threshold t = %s', t)
+#      if(t>cap){
+#        t = as.numeric(quantile(x, 0.90))
+#        loginfo('Optimal threshold too high, setting threshold to 90th percentile t = %s', t)
+#      }
+#      return(t)
+#      break;
+#    }else{
+#      mu1 = cmu1 
+#      mu2 = cmu2
+#      t = round( (mu1 + mu2)/2, r)
+#      loginfo('Iteration %s, threshold t = %s', i-1, t)
+#    }
+#    i = i+1
+#  }
+#}
 
 # .centerOfMass <- function(spot){
 #   area = sum(spot)
